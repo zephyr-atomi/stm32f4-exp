@@ -164,6 +164,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "embedded-io"
+version = "0.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "edd0f118536f44f5ccd48bcb8b111bdc3de888b58c74639dfb034a357d0f206d"
+
+[[package]]
 name = "embedded-storage"
 version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -260,6 +266,12 @@ dependencies = [
  "cortex-m",
  "defmt",
 ]
+
+[[package]]
+name = "portable-atomic"
+version = "1.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cc9c68a3f6da06753e9335d63e27f6b9754dd1920d941135b7ea8224f141adb2"
 
 [[package]]
 name = "powerfmt"
@@ -365,16 +377,33 @@ dependencies = [
  "cortex-m-rt",
  "defmt",
  "defmt-rtt",
+ "embedded-hal 0.2.7",
+ "embedded-hal 1.0.0",
  "log",
  "panic-probe",
+ "stm32f4",
  "stm32f4xx-hal",
 ]
 
 [[package]]
-name = "stm32f4xx-hal"
-version = "0.20.0"
+name = "stm32f4-staging"
+version = "0.16.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "10c41454f262c0be0c35b8cfc0d971e598281f7a9be32e894dc97a0b21deadfe"
+checksum = "97a6d5e873d8f15406aadd4349b491e28617173a90f152c0635863b1919070af"
+dependencies = [
+ "cortex-m",
+ "cortex-m-rt",
+ "critical-section",
+ "defmt",
+ "portable-atomic",
+ "vcell",
+]
+
+[[package]]
+name = "stm32f4xx-hal"
+version = "0.22.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a1e9c28bbbb88aae3b1c12e53788a08b1128081a064425520dc0ca29fdd4eb66"
 dependencies = [
  "bare-metal 1.0.0",
  "cortex-m",
@@ -385,15 +414,15 @@ dependencies = [
  "embedded-hal 0.2.7",
  "embedded-hal 1.0.0",
  "embedded-hal-nb",
+ "embedded-io",
  "embedded-storage",
  "enumflags2",
  "fugit",
  "fugit-timer",
  "nb 1.1.0",
  "rand_core",
- "stm32f4",
+ "stm32f4-staging",
  "time",
- "vcell",
  "void",
 ]
 

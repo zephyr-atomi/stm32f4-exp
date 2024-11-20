@@ -11,10 +11,13 @@ panic-probe = { version = "0.3.1", features = ["defmt"] }
 log = "0.4.22"
 defmt = { version = "0.3"}
 defmt-rtt = "0.4"
+embedded-hal = "1.0"
+embedded-hal-02 = {package = "embedded-hal", version = "0.2", features = ["unproven"]}
+stm32f4xx-hal = {version = "0.22", default-features = false, features = ["stm32f405", "defmt"]}
+stm32f4 = {version = "0.15", default-features = false, features = ["stm32f405", "rt"]}
 
-[dependencies.stm32f4xx-hal]
-version = "0.20.0"
-features = ["stm32f411", "defmt", ]
+
+[dev-dependencies]
 
 # Set the default for dependencies.
 [profile.dev.package."*"]
