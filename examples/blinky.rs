@@ -16,19 +16,23 @@ use defmt::info;
 
 #[entry]
 fn main() -> ! {
-    let p = pac::Peripherals::take().unwrap();
+    let dp = pac::Peripherals::take().unwrap();
+    let cp = cortex_m::peripheral::Peripherals::take().unwrap();
+    let rcc = dp.RCC.constrain();
+    let clocks = rcc.cfgr.sysclk(48.MHz()).freeze();
 
-    let gpioc = p.GPIOC.split();
-    let mut led = gpioc.pc13.into_push_pull_output();
+    // Create a delay abstraction based on SysTick
+    let mut delay = cp.SYST.delay(&clocks);
 
+    let gpiob = dp.GPIOB.split();
+    let mut led = gpiob.pb2.into_push_pull_output();
+
+    let mut count: i32 = 0;
     loop {
-        info!("hello");
-        // iprintln!("hello");
-        for _ in 0..100_000 {
-            led.set_high();
-        }
-        for _ in 0..100_000 {
-            led.set_low();
-        }
+        count = count.wrapping_add(1);
+        info!("hello: {}", count);
+
+        delay.delay_ms(1000);
+        led.toggle();
     }
 }
